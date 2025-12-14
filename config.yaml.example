@@ -1,0 +1,41 @@
+# Configuration file for Flashnet API Trading Bot
+# Copy this file to config.yaml and adjust values as needed
+# This file contains non-sensitive configuration parameters
+# Secrets (tokens, keys) should be stored in .env file
+
+# Monitoring Configuration
+monitoring:
+  # Minimum BTC amount for big sales monitoring
+  big_sales_min_btc_amount: 0.0025
+  
+  # Minimum BTC amount for filtered tokens monitoring
+  filtered_min_btc_amount: 0.01
+  
+  # Stats send time (HH:MM)
+  stats_send_time: "10:00"
+  
+  # Hot Token Detection Settings
+  hot_token:
+    swaps_count: 6
+    min_addresses: 3
+
+# Telegram Configuration (non-sensitive)
+telegram:
+  # Token list to monitor (poolLpPublicKey)
+  # You can specify it as YAML array (recommended) or as comma-separated string via .env
+  # Example:
+  # filtered_tokens:
+  #   - "021cda97a28df127f41e480ebede196f6f7d46dd6754feab7c228d8273dce6d39e"
+  #   - "02fa14545dc12d8b64c05bf5f3fba3ba5a9311af11dffd702465142c83e45fd2c4"
+  filtered_tokens: []
+
+# Application Settings
+app:
+  # check_interval - interval for polling new data (seconds)
+  check_interval: 60  # seconds
+
+# Flashnet API Settings
+flashnet:
+  network: "mainnet"  # mainnet or testnet
+  request_timeout: 30  # seconds
+  max_retries: 3

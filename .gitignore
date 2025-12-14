@@ -1,0 +1,80 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# User configuration (contains user-specific settings)
+config.yaml
+
+# API keys and credentials
+*_token.json
+*_challenge.json
+*_signature.json
+data_in/
+credentials/
+secrets/
+
+# Sensitive output data
+data_out/wallet_swaps_*.json
+data_out/holders_module/
+data_out/big_sales_module/
+data_out/telegram_out/
+data_out/saved_ticket.json
+data_out/filtered_tokens.json
+
+# Logs
+*.log
+logs/
+app.log
+
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/bot
+/main
+/bin/
+/dist/
+/build/
+
+# Go vendor dependencies (if using vendor)
+vendor/
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+tmp/
+temp/
+
+# Generated charts (optional - depends if you want to show them)
+# data_out/charts/*.png
+
+# Terminal session files
+terminals/
+
+# Private notes or documentation
+PRIVATE_*
+TODO_PRIVATE*
+notes_private/
