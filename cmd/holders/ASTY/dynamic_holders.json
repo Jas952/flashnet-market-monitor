@@ -1,0 +1,1144 @@
+{
+  "lastCheckDate": "2025-12-12",
+  "changes": {
+    "0209771db3b50b0dca3625f58cb47141668bf47fdd8802a7b08f55bef03a2a879b": [
+      {
+        "amount": 2623360.53385298,
+        "delta": 2623360.53385298,
+        "action": "sold",
+        "value": 0.00973376,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -2623360.53385298,
+        "action": "liquidated",
+        "value": 0.00920576,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00920576,
+        "date": "2025-12-12"
+      }
+    ],
+    "02137e5798bafb5f2c33bedd97a117361a171a91b16ef44c6546bb798b07dab2af": [
+      {
+        "amount": 2625974.81023908,
+        "delta": 2625974.81023908,
+        "action": "invested",
+        "value": 0.00110592,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 2879960.40516033,
+        "delta": 253985.5949212499,
+        "action": "invested",
+        "value": 0.00110592,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 3132461.40149761,
+        "delta": 252500.99633728014,
+        "action": "invested",
+        "value": 0.00110592,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 3258158.96468235,
+        "delta": 125697.56318474002,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 3150568.92199741,
+        "delta": -107590.04268494016,
+        "action": "sold",
+        "value": 0,
+        "date": "2025-12-12"
+      }
+    ],
+    "021409bf87e6b85e522cc4e471648760d4db218ac1d3e76af6ecdfda6b7c820cdf": [
+      {
+        "amount": 637424.21031883,
+        "delta": 637424.21031883,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 818239.07090475,
+        "delta": 180814.86058592005,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0,
+        "delta": -818239.07090475,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "02144dbac293809c0bcfec616d815f06f35a07b68d3ce8b79b865f04ebcd79ad63": [
+      {
+        "amount": 0.38207542,
+        "delta": 0,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "021a32a96a439ff1dfd5d9bdd49df0ae2e86959808233d30f935784b8b01eb8183": [
+      {
+        "amount": 607682.28593119,
+        "delta": 607682.28593119,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 747247.19911203,
+        "delta": 139564.91318083997,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "021cba3301edbc8e107127d37018ff8109c26732bec92dd589960a15ee3e2d05c9": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00124992,
+        "date": "2025-12-11"
+      }
+    ],
+    "022bc20b4c549493cea1b63218f497099f631a96fd4a7a744a3f41d707fdc369a5": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00703744,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00703744,
+        "date": "2025-12-12"
+      }
+    ],
+    "0231bed43c899241009f92219466825a322544f29639be95d1060af806b917797e": [
+      {
+        "amount": 269471.60757035,
+        "delta": 269471.60757035,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 528165.13935131,
+        "delta": 258693.53178095998,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "0233bd42a1d2e7718c761379c27e7add93469385592deb78b475c461ed7b550e61": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.0048096,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.0048096,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 512615.03188196,
+        "delta": 512615.03188196,
+        "action": "invested",
+        "value": 0.00221184,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 0,
+        "delta": -512615.03188196,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-12"
+      }
+    ],
+    "023bfb813ec5a5d41d6b38bc4642d17c34de8dbd0882f3407c3af7f3c39f6c78d1": [
+      {
+        "amount": 931229.97176474,
+        "delta": 931229.97176474,
+        "action": "invested",
+        "value": 0.0041,
+        "date": "2025-12-10"
+      }
+    ],
+    "023e94f5afad1928b7d2a5af3f7a3946c3ac5a867f7dec5c9152e8901a849945b6": [
+      {
+        "amount": 255937.52024204,
+        "delta": 255937.52024204,
+        "action": "invested",
+        "value": 0.00112143,
+        "date": "2025-12-10"
+      }
+    ],
+    "0246175874633ebbe4bcc960b812399e6ae122677b9981ba6b26e03c0b643c8c2c": [
+      {
+        "amount": 3000000.69515537,
+        "delta": 3000000.69515537,
+        "action": "sold",
+        "value": 0.00447616,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 1000000.23171847,
+        "delta": -2000000.4634369002,
+        "action": "sold",
+        "value": 0.00437184,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 2e-8,
+        "delta": -1000000.23171845,
+        "action": "sold",
+        "value": 0.00417408,
+        "date": "2025-12-11"
+      }
+    ],
+    "0250560020a900cc323cd048d0efb435418f79a1b880d3ca9b633bce4be4230f20": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "0256fcdd9a188ef90002d3669fa4012ae8f9e320036066544a27308f659548eacb": [
+      {
+        "amount": 266759.18781789,
+        "delta": 266759.18781789,
+        "action": "invested",
+        "value": 0.00108544,
+        "date": "2025-12-12"
+      }
+    ],
+    "0266f2305cd240f55dc320f46fd2a199d90f32c06abe02ed5547007230092c5d4d": [
+      {
+        "amount": 982059.83236854,
+        "delta": 982059.83236854,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 1275266.30399658,
+        "delta": 293206.47162803996,
+        "action": "invested",
+        "value": 0.0010752,
+        "date": "2025-12-12"
+      }
+    ],
+    "027268169c111d9f34297f8dbda4df12cfc8bf9b4b791352fa34a5291e0d02e5eb": [
+      {
+        "amount": 1522417.04702937,
+        "delta": 1522417.04702937,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 0,
+        "delta": -1522417.04702937,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-10"
+      }
+    ],
+    "02760aefedda4a19e64687ed23662b70ebc3ebfa740b31934ae820e6af11ee51fb": [
+      {
+        "amount": 336397.09650701,
+        "delta": 336397.09650701,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 611538.79609928,
+        "delta": 275141.69959227,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "02800401260f539205497b66781494618098917efa89fa3ae7c1c3ed028dd57133": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-08"
+      }
+    ],
+    "028fcf099ee03939d4bd950bedb674e2acb60caf10a8d8273022599743aaadb1e4": [
+      {
+        "amount": 1161513.06451089,
+        "delta": 1161513.06451089,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0,
+        "delta": -1161513.06451089,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "02916bc626c6499fc81d0bb9c093d869aaf0a8b548f3dfef8c7e8012ec9bd998e6": [
+      {
+        "amount": 3890462.22327342,
+        "delta": 0,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "0297fcdf949c6379fdb0aacfd8b730824cb6a9863c5d45059cd30ebb792a10fd7a": [
+      {
+        "amount": 234026.27903168,
+        "delta": 234026.27903168,
+        "action": "invested",
+        "value": 0.00101962,
+        "date": "2025-12-10"
+      }
+    ],
+    "029c223f6c8b8dc03aa1390234ef74652924d294902bda190d17920f272dccf8cb": [
+      {
+        "amount": 778792.92744071,
+        "delta": 778792.92744071,
+        "action": "sold",
+        "value": 0,
+        "date": "2025-12-08"
+      },
+      {
+        "amount": 0,
+        "delta": -778792.92744071,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00221184,
+        "date": "2025-12-11"
+      }
+    ],
+    "02a338391d0b0948d6e7200cb395e3dfe8684af2ac71846c764f1882b8a2b1a4db": [
+      {
+        "amount": 283455.2763437,
+        "delta": 283455.2763437,
+        "action": "invested",
+        "value": 0.00124981,
+        "date": "2025-12-10"
+      }
+    ],
+    "02bca9f67c003234e8d7d535b71bb6f49f7944ba3ea411c242179bf54a97ecf345": [
+      {
+        "amount": 1568806.65696646,
+        "delta": 1568806.65696646,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 3088215.52124825,
+        "delta": 1519408.8642817899,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 5422186.24722354,
+        "delta": 2333970.7259752904,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 5722388.10916317,
+        "delta": 300201.86193962954,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "02c6b022a4ab36ac7af334926a8bb4ccafad7a4aa6de2ae94092c9e86c40fb2e3f": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "02dc3175ff920bb21d1db92a23d6bff52d6cd2ec9ca21dbb55b3879b7d9ab0f871": [
+      {
+        "amount": 440116.31016986,
+        "delta": 440116.31016986,
+        "action": "sold",
+        "value": 0,
+        "date": "2025-12-08"
+      },
+      {
+        "amount": 0,
+        "delta": -440116.31016986,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "02e0d5299c94c7f9abcccdc9168927f70dece12d7317e07a2f7055ceca634f69e4": [
+      {
+        "amount": 175459.63571893,
+        "delta": 175459.63571893,
+        "action": "invested",
+        "value": 0.0010752,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 413495.3896832,
+        "delta": 238035.75396427,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 526101.36119904,
+        "delta": 112605.97151583998,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-11"
+      }
+    ],
+    "02e11a0594f3904ed0046d0d52a8dc0fc774df6b84f09338e639d8ff40679b1f92": [
+      {
+        "amount": 753630.64222867,
+        "delta": 753630.64222867,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0,
+        "delta": -753630.64222867,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "02ee5da3cfca9e374a3699221787e3e2d6354e0c2db925c07e429210d91f5c7e93": [
+      {
+        "amount": 2726624.27932857,
+        "delta": 2726624.27932857,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 4958330.9133598,
+        "delta": 2231706.6340312306,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 4983355.37446756,
+        "delta": 25024.461107759736,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-10"
+      }
+    ],
+    "02eec3c1012f96503a9df0ac1ebed5d34b144fbed23ce4ad4a0b564afb2a81a2c6": [
+      {
+        "amount": 636796.94471291,
+        "delta": 636796.94471291,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "02f51f874a086d3773c43c159856b1783ae49003dc517079a777841377500675f2": [
+      {
+        "amount": 941082.31560488,
+        "delta": 941082.31560488,
+        "action": "sold",
+        "value": 0.00322112,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -941082.31560488,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-12"
+      }
+    ],
+    "030209b6244e6b1e24ec080247294ddd5c5b2ec820f0b016311a0616ec68f93799": [
+      {
+        "amount": 9178186.41503163,
+        "delta": 9178186.41503163,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-08"
+      }
+    ],
+    "03054ee97c20049594f4d926871346f8d0cb857ecda876ecf10e63dcd1343c1de6": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00106304,
+        "date": "2025-12-12"
+      }
+    ],
+    "030da73887f316e73e931a29d1a0b6c90caba1cc053e0af263b3da8bca029a47bb": [
+      {
+        "amount": 234159.24003161,
+        "delta": 234159.24003161,
+        "action": "invested",
+        "value": 0.0010387,
+        "date": "2025-12-10"
+      }
+    ],
+    "031221ae9cac99ab7a361b7b6a9ace42782aba413a1bb2ad09332c13638bf31c6a": [
+      {
+        "amount": 245175.42583436,
+        "delta": 245175.42583436,
+        "action": "sold",
+        "value": 0.00100864,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 0,
+        "delta": -245175.42583436,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-10"
+      }
+    ],
+    "031e761be979545a8c0a4a2287377e6da361225e2a27f4b6e2476993df8f41111e": [
+      {
+        "amount": 506414.37697694,
+        "delta": 506414.37697694,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 964333.1784851,
+        "delta": 457918.80150816,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0,
+        "delta": -964333.1784851,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "03259f9cc304146f67b92c8052fba5670ec38cbfb3229cebaf52b22740f23165e3": [
+      {
+        "amount": 516720.91734436,
+        "delta": 516720.91734436,
+        "action": "invested",
+        "value": 0.00189036,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 866429.65830422,
+        "delta": 349708.74095986,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-12"
+      }
+    ],
+    "032c002d5aca76294222df692591cf5b3be069f8af3fa6d0b6a481ffa23f27d630": [
+      {
+        "amount": 166.34316183,
+        "delta": 166.34316183,
+        "action": "invested",
+        "value": 0.0022016,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 1145640.32248261,
+        "delta": 1145473.97932078,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 114.56403225,
+        "delta": -1145525.7584503598,
+        "action": "sold",
+        "value": 0.00440832,
+        "date": "2025-12-12"
+      }
+    ],
+    "03356bdba318a5b5cdab5819fba994e43c676b56116dad2f8e9bcef4a2ea86d791": [
+      {
+        "amount": 536728.71843075,
+        "delta": 536728.71843075,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-08"
+      },
+      {
+        "amount": 1067346.02601638,
+        "delta": 530617.30758563,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-08"
+      },
+      {
+        "amount": 1200000,
+        "delta": 132653.97398362006,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 0,
+        "delta": -1200000,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-12"
+      }
+    ],
+    "0341fe35df38c369f479474dc587c89cf489d8995012416ca2ea431e11d679719f": [
+      {
+        "amount": 5047697.6154028,
+        "delta": 5047697.6154028,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 6240314.72247245,
+        "delta": 1192617.1070696497,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "034607025baaf5efb11438f66703e69cea4399bf0f388578ff3e1d6d7cca98205f": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "034788779cd1d94aba869fefaa046ce3cca948121d9f8088b72119bd647a3c6fb4": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 258554.65927996,
+        "delta": 258554.65927996,
+        "action": "invested",
+        "value": 0.0010752,
+        "date": "2025-12-12"
+      }
+    ],
+    "035255c0f8cb96aeefbcdfb126895b628516d38b0903b41f842f5c2996c2213142": [
+      {
+        "amount": 448406.57336128,
+        "delta": 448406.57336128,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 1169772.49677894,
+        "delta": 721365.9234176601,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "0364ea3b6101620b3816f9d2683b97a9c3e1c08a8c518291ff50d2ce9ba96f656e": [
+      {
+        "amount": 29097340.7915819,
+        "delta": 29097340.7915819,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 29123378.85945519,
+        "delta": 26038.06787329167,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 29145840.97238768,
+        "delta": 22462.112932488322,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 29165966.46694218,
+        "delta": 20125.494554501027,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-11"
+      }
+    ],
+    "036a50d0ed56b5052a9271098b671e695f3413ba52d5e7748970b735037d0e31e7": [
+      {
+        "amount": 493105.33982432,
+        "delta": 493105.33982432,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 369829.00486824,
+        "delta": -123276.33495608001,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "036d37ab129ddcfdd532a1fe3a5d2f1de4e268f3d9be8c730a4c6f8b29774107e5": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "0378a639a44b0ae2ae23c496819c19eb2fe9c07bd80724cb670c0690f68c27a5b0": [
+      {
+        "amount": 242362.03857417,
+        "delta": 242362.03857417,
+        "action": "invested",
+        "value": 0.00108109,
+        "date": "2025-12-10"
+      }
+    ],
+    "0378c5706d91b6d57d7951eb47e8a21cdcec3648c7f672e396bf0ad4a72e0aa98b": [
+      {
+        "amount": 329414.8563454,
+        "delta": 329414.8563454,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 628826.12168164,
+        "delta": 299411.26533624006,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "037aed934a97a54445ce3f0ea6a4198b20ad4095d34ac17b525ab5a314511aaeae": [
+      {
+        "amount": 3226230.41281458,
+        "delta": 3226230.41281458,
+        "action": "invested",
+        "value": 0.00364544,
+        "date": "2025-12-11"
+      }
+    ],
+    "037e0d2c12c8c9dc4574fccd0b6aa63df9c96dfd757c7651f5bacca54ad41498e4": [
+      {
+        "amount": 11920130.47224714,
+        "delta": 0,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "038895f4c3ecfa2d2a65502f13778ee74b173c7841b8f954660dbc5bdd369a0964": [
+      {
+        "amount": 306589.69636958,
+        "delta": 306589.69636958,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 566094.8464588,
+        "delta": 259505.15008922003,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "038ad2deab88fa2f278ad895f61254a804370d987db61301a7d6872df4231b6597": [
+      {
+        "amount": 2293641.22712187,
+        "delta": 2293641.22712187,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 2350650.77823809,
+        "delta": 57009.55111622019,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 2115585.70041429,
+        "delta": -235065.07782380003,
+        "action": "sold",
+        "value": 0,
+        "date": "2025-12-11"
+      }
+    ],
+    "0390fdbde4d3db4f358ef52e52c9664a45d319f0a1c70629b4a59fee2f07c6dda3": [
+      {
+        "amount": 240640.66050849,
+        "delta": 240640.66050849,
+        "action": "invested",
+        "value": 0.0010752,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 477012.80807219,
+        "delta": 236372.14756369998,
+        "action": "invested",
+        "value": 0.0010752,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 0,
+        "delta": -477012.80807219,
+        "action": "liquidated",
+        "value": 0.00217984,
+        "date": "2025-12-11"
+      }
+    ],
+    "03968dd29a70759d042c2b59f3889ffbabdcaff33856f685938306f704280f3247": [
+      {
+        "amount": 974812.43445306,
+        "delta": 974812.43445306,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 0.43445306,
+        "delta": -974812,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "03a6f3b7c061c41d0c5275660f61daab60c4bd99600ee994ff4d78bb0310b6754c": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "03a897848a5a71eeaad4c85eb8421a4dc00736a7526398720ed82e23dc7dda4e8e": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00164864,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00164864,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00164864,
+        "date": "2025-12-12"
+      }
+    ],
+    "03af89d4a1d90e921ee01b3a40988d57c39002d011dc585011bb523c591617d14d": [
+      {
+        "amount": 1184268.46249959,
+        "delta": 1184268.46249959,
+        "action": "invested",
+        "value": 0.0055296,
+        "date": "2025-12-11"
+      }
+    ],
+    "03b750d3a83469c37c970745ce73763ed73701b4205f1d3c87922dc1388874ac26": [
+      {
+        "amount": 327240.86340326,
+        "delta": 327240.86340326,
+        "action": "invested",
+        "value": 0.00148,
+        "date": "2025-12-10"
+      }
+    ],
+    "03bc52b7264489ba712b8d00eed36ea42dd8f1ff745988f26d4986c3ae31107b06": [
+      {
+        "amount": 5637707.8279774,
+        "delta": 5637707.8279774,
+        "action": "sold",
+        "value": 0.00136064,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 5768546.9070908,
+        "delta": 130839.07911339961,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 5068546.9070908,
+        "delta": -700000,
+        "action": "sold",
+        "value": 0,
+        "date": "2025-12-10"
+      }
+    ],
+    "03c2f7742266e67362e6257bd56fde648fcb2e41d3c3297c886d89e4551f323fba": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00932096,
+        "date": "2025-12-12"
+      },
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0.00932096,
+        "date": "2025-12-12"
+      }
+    ],
+    "03c6777acdfd784afd413c718b2ad61b968a124ec3c3523588d77ac861ff4f7323": [
+      {
+        "amount": 1570298.96773782,
+        "delta": 1570298.96773782,
+        "action": "invested",
+        "value": 0.00110592,
+        "date": "2025-12-11"
+      }
+    ],
+    "03c71695518ee71e90b60f40479639ab2c7a275ae5ac87117309bc4a7e76fb6818": [
+      {
+        "amount": 260704.0615849,
+        "delta": 260704.0615849,
+        "action": "invested",
+        "value": 0.00112938,
+        "date": "2025-12-10"
+      }
+    ],
+    "03cb2602d89a5293507a5f21d02f970b5c066e1caf4d1fd8280bd3478c3f15759a": [
+      {
+        "amount": 567930.90601336,
+        "delta": 567930.90601336,
+        "action": "invested",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "03dd82f27d9903a94b122b0288b8010ec656a9137ba4ba9055a1cf00f1d17b8d0f": [
+      {
+        "amount": 437449.84367144,
+        "delta": 437449.84367144,
+        "action": "invested",
+        "value": 0.00187029,
+        "date": "2025-12-09"
+      }
+    ],
+    "03def02516168f310e78be13a203662115d018c1985a169acb262fed91f466d6f0": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "03e2ca4375fc26b5dea1004ef295a63da14c524aeb67fc1697600e9c74e6312430": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "03e4a22c989ce506530c45127e329a689ffc3ba11b364c37e99ce502d354637446": [
+      {
+        "amount": 5888729.57368742,
+        "delta": 5888729.57368742,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 4769870.95468682,
+        "delta": -1118858.6190006007,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      }
+    ],
+    "03e54f9b5212a0a144fb008d148c716f01fe88d46b8e11627cbfbeb7fd8d08e83d": [
+      {
+        "amount": 568092.57557572,
+        "delta": 568092.57557572,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      },
+      {
+        "amount": 851071.12279476,
+        "delta": 282978.54721904,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-09"
+      }
+    ],
+    "03eb553abac1cfd6c954af60219560917827e854f16d0f61aa652b28f4307eec1c": [
+      {
+        "amount": 334697.89600657,
+        "delta": 334697.89600657,
+        "action": "invested",
+        "value": 0.0015,
+        "date": "2025-12-10"
+      },
+      {
+        "amount": 640186.5706047,
+        "delta": 305488.67459813,
+        "action": "invested",
+        "value": 0,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 0,
+        "delta": -640186.5706047,
+        "action": "liquidated",
+        "value": 0.00299456,
+        "date": "2025-12-11"
+      }
+    ],
+    "03f639f930452eae1f1ee07b40b3e8fe3528dd66a0a7c4e33687390300921d5fae": [
+      {
+        "amount": 0,
+        "delta": -0,
+        "action": "liquidated",
+        "value": 0,
+        "date": ""
+      },
+      {
+        "amount": 1235836.65400531,
+        "delta": 1235836.65400531,
+        "action": "invested",
+        "value": 0.0011008,
+        "date": "2025-12-11"
+      },
+      {
+        "amount": 1498152.05596839,
+        "delta": 262315.40196308005,
+        "action": "invested",
+        "value": 0.0010752,
+        "date": "2025-12-12"
+      }
+    ],
+    "03f6e93cb8bc57cb30b471e43394d5d9823664a19dffb1810744421164e752b760": [
+      {
+        "amount": 1500000,
+        "delta": 0,
+        "action": "sold",
+        "value": 0,
+        "date": ""
+      }
+    ]
+  },
+  "dailyCounts": {
+    "0209771db3b50b0dca3625f58cb47141668bf47fdd8802a7b08f55bef03a2a879b": 3,
+    "02137e5798bafb5f2c33bedd97a117361a171a91b16ef44c6546bb798b07dab2af": 2,
+    "022bc20b4c549493cea1b63218f497099f631a96fd4a7a744a3f41d707fdc369a5": 2,
+    "0233bd42a1d2e7718c761379c27e7add93469385592deb78b475c461ed7b550e61": 1,
+    "0256fcdd9a188ef90002d3669fa4012ae8f9e320036066544a27308f659548eacb": 1,
+    "0266f2305cd240f55dc320f46fd2a199d90f32c06abe02ed5547007230092c5d4d": 1,
+    "02f51f874a086d3773c43c159856b1783ae49003dc517079a777841377500675f2": 2,
+    "03054ee97c20049594f4d926871346f8d0cb857ecda876ecf10e63dcd1343c1de6": 1,
+    "03259f9cc304146f67b92c8052fba5670ec38cbfb3229cebaf52b22740f23165e3": 2,
+    "032c002d5aca76294222df692591cf5b3be069f8af3fa6d0b6a481ffa23f27d630": 1,
+    "03356bdba318a5b5cdab5819fba994e43c676b56116dad2f8e9bcef4a2ea86d791": 1,
+    "034788779cd1d94aba869fefaa046ce3cca948121d9f8088b72119bd647a3c6fb4": 1,
+    "03a897848a5a71eeaad4c85eb8421a4dc00736a7526398720ed82e23dc7dda4e8e": 3,
+    "03c2f7742266e67362e6257bd56fde648fcb2e41d3c3297c886d89e4551f323fba": 2,
+    "03f639f930452eae1f1ee07b40b3e8fe3528dd66a0a7c4e33687390300921d5fae": 1
+  }
+}
