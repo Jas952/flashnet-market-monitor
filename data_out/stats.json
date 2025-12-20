@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "date": "2025-12-10",
+      "total_tokens": 35439,
+      "total_market_cap_usd": 1852079158143.1133,
+      "total_volume_24h_usd": 228878.46602193144,
+      "total_tvl_usd": 1252467.5103752,
+      "total_pools": 3636,
+      "check": false
+    },
+    {
+      "date": "2025-12-11",
+      "total_tokens": 35504,
+      "total_market_cap_usd": 1852079181304.4702,
+      "total_volume_24h_usd": 249930.09735177134,
+      "total_tvl_usd": 1203568.37233614,
+      "total_pools": 3684,
+      "check": true
+    },
+    {
+      "date": "2025-12-12",
+      "total_tokens": 35556,
+      "total_market_cap_usd": 1852079119830.2173,
+      "total_volume_24h_usd": 187265.9312749701,
+      "total_tvl_usd": 1165501.8482581803,
+      "total_pools": 3718,
+      "check": false
+    }
+  ]
+}

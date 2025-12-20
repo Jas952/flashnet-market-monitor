@@ -6,7 +6,7 @@ package main
 
 import (
 	"spark-wallet/http_client/bot"
-	"spark-wallet/http_client/system_works"
+	"spark-wallet/internal/infra/log"
 	"time"
 
 	"go.uber.org/zap"
@@ -20,6 +20,6 @@ func main() {
 	checkInterval := 1 * time.Hour
 	bot.RunHoldersMonitor(checkInterval)
 
-	system_works.LogSuccess("Holders monitor is running", zap.String("status", "active"))
+	log.LogSuccess("Holders monitor is running", zap.String("status", "active"))
 	select {}
 }

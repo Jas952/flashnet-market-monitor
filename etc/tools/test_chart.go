@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"spark-wallet/http_client/system_works"
+	"spark-wallet/internal/features/tg_charts"
 )
 
 // go run etc/tools/test_chart.go
@@ -11,7 +11,7 @@ import (
 func main() {
 	fmt.Println("Generating test chart...")
 
-	chartPath, err := system_works.GenerateVolumeChart()
+	chartPath, err := tg_charts.GenerateVolumeChart()
 	if err != nil {
 		fmt.Printf("Error generating chart: %v\n", err)
 		os.Exit(1)

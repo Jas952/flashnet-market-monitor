@@ -9,7 +9,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"spark-wallet/http_client/bot"
-	"spark-wallet/http_client/system_works"
+	"spark-wallet/internal/clients_api/flashnet"
+	"spark-wallet/internal/infra/log"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -29,17 +30,17 @@ func main() {
 	publicKey := os.Getenv("PUBLIC_KEY")
 	dataDir := "data_in"
 
-	system_works.LogInfo("Starting Big Sales Monitor (without Telegram)...")
-	system_works.LogInfo("Network", zap.String("network", network))
+	log.LogInfo("Starting Big Sales Monitor (without Telegram)...")
+	log.LogInfo("Network", zap.String("network", network))
 
 	// Create API
-	client := system_works.NewAMMClient(network)
+	client := flashnet.NewAMMClient(network)
 
 	// Check and update token
 	if publicKey != "" {
 		ensureValidToken(client, publicKey, dataDir)
 	} else {
-		system_works.LogWarn("PUBLIC_KEY not provided, running without authentication")
+		log.LogWarn("PUBLIC_KEY not provided, running without authentication")
 	}
 
 	// Initialize API-, if token
@@ -51,9 +52,9 @@ func main() {
 		var err error
 		apiBot, err = tgbotapi.NewBotAPI(apiBotToken)
 		if err != nil {
-			system_works.LogWarn("Failed to initialize API bot (continuing without it)", zap.Error(err))
+			log.LogWarn("Failed to initialize API bot (continuing without it)", zap.Error(err))
 		} else {
-			system_works.LogSuccess("API Bot authorized", zap.String("username", apiBot.Self.UserName))
+			log.LogSuccess("API Bot authorized", zap.String("username", apiBot.Self.UserName))
 		}
 	}
 
@@ -64,56 +65,56 @@ func main() {
 	bot.RunBigSalesBuysMonitor(apiBot, client, apiBotChatID, minBTCAmount, nil, "", nil, 0)
 }
 
-func ensureValidToken(client *system_works.Client, publicKey string, dataDir string) {
+func ensureValidToken(client *flashnet.Client, publicKey string, dataDir string) {
 	// Check, token
-	tokenFile, err := system_works.LoadTokenFromFile(dataDir)
+	tokenFile, err := flashnet.LoadTokenFromFile(dataDir)
 	if err == nil && tokenFile.AccessToken != "" {
-		expiresAt, err := system_works.GetTokenExpirationTime(tokenFile.AccessToken)
+		expiresAt, err := flashnet.GetTokenExpirationTime(tokenFile.AccessToken)
 		if err == nil && expiresAt > time.Now().Unix() {
 			// token use
 			client.SetJWT(tokenFile.AccessToken)
-			system_works.LogInfo("Using saved JWT token", zap.String("expiresAt", time.Unix(expiresAt, 0).Format(time.RFC3339)))
+			log.LogInfo("Using saved JWT token", zap.String("expiresAt", time.Unix(expiresAt, 0).Format(time.RFC3339)))
 			return
 		} else {
-			system_works.LogWarn("Saved token is expired or invalid, refreshing...")
+			log.LogWarn("Saved token is expired or invalid, refreshing...")
 		}
 	}
 
 	// token or - get
-	system_works.LogInfo("Getting new challenge...")
+	log.LogInfo("Getting new challenge...")
 	ctx := context.Background()
 	_, err = client.GetChallengeAndSave(ctx, dataDir, publicKey)
 	if err != nil {
-		system_works.LogError("Failed to get challenge", zap.Error(err))
-		system_works.Logger.Fatal("Failed to get challenge", zap.Error(err))
+		log.LogError("Failed to get challenge", zap.Error(err))
+		log.Logger.Fatal("Failed to get challenge", zap.Error(err))
 	}
 
-	system_works.LogInfo("Signing challenge automatically...")
+	log.LogInfo("Signing challenge automatically...")
 	signChallengePath := filepath.Join("spark-cli", "sign-challenge.mjs")
 	cmd := exec.Command("node", signChallengePath)
 	cmd.Dir = "."
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		system_works.LogError("Failed to sign challenge",
+		log.LogError("Failed to sign challenge",
 			zap.Error(err),
 			zap.String("output", string(output)))
-		system_works.Logger.Fatal("Failed to sign challenge. Please run: make sign")
+		log.Logger.Fatal("Failed to sign challenge. Please run: make sign")
 	}
 
 	// time on file
 	time.Sleep(500 * time.Millisecond)
 
-	sigFile, err := system_works.LoadSignatureFromFile(dataDir)
+	sigFile, err := flashnet.LoadSignatureFromFile(dataDir)
 	if err != nil || sigFile.Signature == "" {
-		system_works.Logger.Fatal("Signature file not found after signing")
+		log.Logger.Fatal("Signature file not found after signing")
 	}
 
-	system_works.LogInfo("Verifying signature...")
+	log.LogInfo("Verifying signature...")
 	_, err = client.VerifySignatureAndSave(ctx, dataDir, sigFile.PublicKey, sigFile.Signature)
 	if err != nil {
-		system_works.LogError("Failed to verify signature", zap.Error(err))
-		system_works.Logger.Fatal("Failed to verify signature", zap.Error(err))
+		log.LogError("Failed to verify signature", zap.Error(err))
+		log.Logger.Fatal("Failed to verify signature", zap.Error(err))
 	}
 
-	system_works.LogSuccess("Token refreshed successfully")
+	log.LogSuccess("Token refreshed successfully")
 }
