@@ -4,7 +4,7 @@ import (
 	"context"
 	"os/exec"
 	"path/filepath"
-	"spark-wallet/http_client/bot"
+	"spark-wallet/bots_monitor"
 	"spark-wallet/internal/clients_api/flashnet"
 	"spark-wallet/internal/infra/config"
 	storage "spark-wallet/internal/infra/fs"
@@ -294,14 +294,14 @@ func main() {
 
 		// Start command handler for filtered chat
 		if filteredBot != nil {
-			go bot.RunCommandHandler(filteredBot, filteredChatID, client)
+			go bots_monitor.RunCommandHandler(filteredBot, filteredChatID, client)
 			// Check and send stats on startup if not sent today
 			// Start stats monitor in separate goroutine
 			statsSendTime := cfg.Telegram.StatsSendTime
 			if statsSendTime == "" {
 				statsSendTime = "10:00" // Default value
 			}
-			go bot.RunStatsMonitor(filteredBot, filteredChatID, statsSendTime)
+			go bots_monitor.RunStatsMonitor(filteredBot, filteredChatID, statsSendTime)
 		}
 	}
 
@@ -335,7 +335,7 @@ func main() {
 				zap.Int("minAddresses", hotTokenMinAddresses),
 				zap.Int("checkInterval", checkInterval),
 				zap.String("chatID", cfg.Telegram.FilteredChatID))
-			go bot.RunHotTokenMonitor(hotTokenBot, client, cfg.Telegram.FilteredChatID, hotTokenSwapsCount, hotTokenMinAddresses, checkInterval)
+			go bots_monitor.RunHotTokenMonitor(hotTokenBot, client, cfg.Telegram.FilteredChatID, hotTokenSwapsCount, hotTokenMinAddresses, checkInterval)
 		} else {
 			logging.LogWarn("Hot token monitor not started: no bot available",
 				zap.String("chatID", cfg.Telegram.FilteredChatID))
@@ -345,10 +345,10 @@ func main() {
 	}
 
 	// Start unified monitoring that sends to both chats simultaneously
-	go bot.RunBigSalesBuysMonitor(bigSalesBot, client, bigSalesChatID, bigSalesMinBTCAmount, filteredBot, filteredChatID, filteredTokensList, filteredMinBTCAmount)
+	go bots_monitor.RunBigSalesBuysMonitor(bigSalesBot, client, bigSalesChatID, bigSalesMinBTCAmount, filteredBot, filteredChatID, filteredTokensList, filteredMinBTCAmount)
 
 	// Start holders dynamics monitoring
-	go bot.RunHoldersDynamicMonitor()
+	go bots_monitor.RunHoldersDynamicMonitor()
 
 	// Keep main goroutine running
 	// select {} is an infinite wait loop that blocks execution

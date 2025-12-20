@@ -1,4 +1,4 @@
-package bot
+package bots_monitor
 
 import (
 	"fmt"

@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"spark-wallet/http_client/bot"
+	"spark-wallet/bots_monitor"
 	"spark-wallet/internal/clients_api/flashnet"
 	"spark-wallet/internal/infra/log"
 	"time"
@@ -62,7 +62,7 @@ func main() {
 	// Use amount by default 0.0025 BTC
 	// for Telegram nil for
 	minBTCAmount := 0.0025
-	bot.RunBigSalesBuysMonitor(apiBot, client, apiBotChatID, minBTCAmount, nil, "", nil, 0)
+	bots_monitor.RunBigSalesBuysMonitor(apiBot, client, apiBotChatID, minBTCAmount, nil, "", nil, 0)
 }
 
 func ensureValidToken(client *flashnet.Client, publicKey string, dataDir string) {
