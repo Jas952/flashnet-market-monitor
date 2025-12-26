@@ -2,6 +2,31 @@
 
 Go-based Telegram bot for monitoring Flashnet/Spark AMM activity with real-time notifications, chart generation, and comprehensive market analytics.
 
+## About Flashnet
+
+**Flashnet** is a modular exchange stack for Bitcoin. It is designed to rival the performance of TradFi exchange systems without any of the custody, and without introducing blockchain-related inefficiencies to execution. This is facilitated by **Spark**, a UTXO scaling solution that enables near-instant, zero-fee settlement of Bitcoin and other assets. Flashnet powers any type of market with native Bitcoin settlement.
+
+Learn more: [Flashnet Documentation](https://docs.flashnet.xyz/introduction)
+
+## Chat Architecture
+
+This bot is built on the principle of **chat separation** to provide flexible notification management. The architecture allows you to configure different chat channels for different types of information:
+
+- **Main Chat (Big Sales Chat)**: Receives all large swap notifications above the configured BTC threshold. This is the primary channel for general market activity that everyone can see.
+
+- **Filtered Chat**: Receives notifications only for specific tokens that you configure. This allows users who want more detailed and focused information to subscribe to a separate channel with filtered content.
+
+**Example workflow:**
+- The bot monitors all swap operations from Flashnet AMM API
+- For each swap, it checks if it meets the criteria (BTC amount threshold, token type)
+- If it's a general large swap → sends to **Main Chat** (visible to everyone)
+- If it's a swap for a filtered token → sends to **Filtered Chat** (for users who want detailed info)
+
+**Important notes:**
+- Some commands (like `/flashadd`, `/flashdel`, `/flash`, `/flow`, `/stats`, `/spark`) work only in the **Filtered Chat**
+- You decide which chat to use for your notifications based on your needs
+- The main chat is for general market overview, while the filtered chat is for specific token tracking
+
 ## Features
 
 - **Big Sales Monitor**: Track large swaps (buys/sells) above configurable BTC thresholds
@@ -201,8 +226,12 @@ Generates and sends daily statistics:
 
 ## API Integration
 
-- **Flashnet API**: Main AMM swap data and authentication
-- **Luminex API**: Token metadata, holder information, wallet balances
+This bot currently works with **GET requests** to fetch market data and monitor activity:
+
+- **Flashnet API**: Main AMM swap data and authentication (GET requests for swaps, pools, history)
+- **Luminex API**: Token metadata, holder information, wallet balances (GET requests for token data)
+
+> 💡 *Note: This version focuses on monitoring and notifications. A future version might support POST requests for direct token swaps, limit orders, and active trading operations. Stay tuned! 😊*
 
 ## Development
 
@@ -214,8 +243,42 @@ go build ./cmd/bot/main.go
 
 ### Testing
 
+The project includes integration tests for both Flashnet and Luminex APIs:
+
 ```bash
+# Run all tests
 go test ./...
+
+# Run integration tests (requires API access)
+go test -tags=integration ./internal/tests
+
+# Run specific integration test
+go test -tags=integration ./internal/tests -run TestIntegration_Flashnet
+go test -tags=integration ./internal/tests -run TestIntegration_Luminex
+```
+
+**What we test:**
+- Flashnet API authentication flow (challenge, signature, token)
+- Flashnet API swap data retrieval
+- Luminex API token metadata retrieval
+- Luminex API wallet balance queries
+- Error handling and retry mechanisms
+
+**Example test output:**
+```
+ok      spark-wallet/internal/tests  2.345s
+ok      spark-wallet/internal/clients_api/flashnet  0.123s
+ok      spark-wallet/internal/clients_api/luminex  0.456s
+
+=== Integration Tests ===
+PASS: TestIntegration_Flashnet (1.234s)
+  ✓ Authentication flow
+  ✓ Get swaps endpoint
+  ✓ Get pools endpoint
+
+PASS: TestIntegration_Luminex (0.567s)
+  ✓ Get token metadata
+  ✓ Get wallet balance
 ```
 
 ### Code Quality
@@ -224,16 +287,6 @@ The project uses:
 - `golangci-lint` for code analysis
 - `.editorconfig` for consistent formatting
 
-## License
 
-[Add your license here]
-
-## Contributing
-
-[Add contribution guidelines here]
-
-## Support
-
-[Add support information here]
 
 
