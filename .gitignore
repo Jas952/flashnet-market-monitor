@@ -78,3 +78,6 @@ terminals/
 PRIVATE_*
 TODO_PRIVATE*
 notes_private/
+
+# Documentation
+docs/
