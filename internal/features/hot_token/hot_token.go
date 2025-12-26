@@ -239,6 +239,3 @@ func GetAllUniquePoolsFromSwaps(client *flashnet.Client, minSwapsToCheck int) ([
 
 	return result, swapsResp.Swaps, nil
 }
-
-
-
