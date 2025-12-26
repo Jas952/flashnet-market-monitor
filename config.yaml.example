@@ -39,3 +39,10 @@ flashnet:
   network: "mainnet"  # mainnet or testnet
   request_timeout: 30  # seconds
   max_retries: 3
+  # Retry tuning (used by flashnet http client)
+  # Exponential backoff base delay (ms)
+  retry_delay_ms: 300
+  # Exponential factor (2.0 = 300ms, 600ms, 1200ms, ...)
+  retry_backoff: 2.0
+  # Maximum delay cap (seconds)
+  retry_max_delay_sec: 5
