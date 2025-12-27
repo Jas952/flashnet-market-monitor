@@ -287,6 +287,11 @@ The project uses:
 - `golangci-lint` for code analysis
 - `.editorconfig` for consistent formatting
 
+### Here are a few examples of tg notifications
+
+![Preview](https://i.imgur.com/1ljUcid.png)
+![Preview](https://i.imgur.com/1JogNXR.png)
+![Preview](https://i.imgur.com/5goE57s.png)
 
 
 
