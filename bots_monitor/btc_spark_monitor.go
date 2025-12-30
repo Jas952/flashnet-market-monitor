@@ -114,8 +114,15 @@ func RunBTCSparkMonitor(bot *tgbotapi.BotAPI, filteredChatID string, sendTime st
 	}
 
 	var hour, minute int
-	fmt.Sscanf(timeParts[0], "%d", &hour)
-	fmt.Sscanf(timeParts[1], "%d", &minute)
+	n1, err1 := fmt.Sscanf(timeParts[0], "%d", &hour)
+	n2, err2 := fmt.Sscanf(timeParts[1], "%d", &minute)
+	if err1 != nil || n1 != 1 || err2 != nil || n2 != 1 {
+		log.LogWarn("Failed to parse time components, using default 10:00",
+			zap.String("hourStr", timeParts[0]),
+			zap.String("minuteStr", timeParts[1]))
+		hour = 10
+		minute = 0
+	}
 
 	now := time.Now().In(moscowLocation)
 	nextSend := time.Date(now.Year(), now.Month(), now.Day(), now.Hour()+1, 0, 0, 0, moscowLocation)

@@ -17,11 +17,26 @@ import (
 var Logger *zap.Logger
 var consoleLogger *zap.Logger // for (ERROR and SUCCESS)
 var fileLogger *zap.Logger    // for file
+var initOnce sync.Once
+var initError error
 
 func init() {
+	initOnce.Do(func() {
+		initError = initializeLoggers()
+	})
+	if initError != nil {
+		// Fallback to basic logging if initialization fails
+		fmt.Fprintf(os.Stderr, "Failed to initialize loggers: %v\n", initError)
+		Logger = zap.NewNop()
+		consoleLogger = zap.NewNop()
+		fileLogger = zap.NewNop()
+	}
+}
+
+func initializeLoggers() error {
 	logsDir := "logs"
 	if err := os.MkdirAll(logsDir, 0755); err != nil {
-		panic(fmt.Sprintf("failed to create logs directory: %v", err))
+		return fmt.Errorf("failed to create logs directory: %w", err)
 	}
 
 	// Configure for file INFO, DEBUG, WARN, ERROR)
@@ -62,11 +77,12 @@ func init() {
 
 	consoleLogger, err = consoleConfig.Build()
 	if err != nil {
-		panic(fmt.Sprintf("failed to build console logger: %v", err))
+		return fmt.Errorf("failed to build console logger: %w", err)
 	}
 
 	// fileLogger in file)
 	Logger = fileLogger
+	return nil
 }
 
 // GenerateRequestID ID for
@@ -271,7 +287,9 @@ func getLogFileWriter(path string) zapcore.WriteSyncer {
 	// file in append
 	file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 	if err != nil {
-		panic(fmt.Sprintf("failed to open log file: %v", err))
+		// Fallback to stderr if file can't be opened
+		fmt.Fprintf(os.Stderr, "failed to open log file %s: %v, falling back to stderr\n", path, err)
+		return zapcore.AddSync(os.Stderr)
 	}
 
 	info, err := file.Stat()
@@ -279,7 +297,9 @@ func getLogFileWriter(path string) zapcore.WriteSyncer {
 		file.Close()
 		file, err = os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 		if err != nil {
-			panic(fmt.Sprintf("failed to truncate log file: %v", err))
+			// Fallback to stderr if truncation fails
+			fmt.Fprintf(os.Stderr, "failed to truncate log file %s: %v, falling back to stderr\n", path, err)
+			return zapcore.AddSync(os.Stderr)
 		}
 	}
 

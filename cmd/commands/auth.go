@@ -9,9 +9,10 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"spark-wallet/internal/clients_api/flashnet"
+	executil "spark-wallet/internal/infra/exec"
+	storage "spark-wallet/internal/infra/fs"
 	"spark-wallet/internal/infra/log"
 	"time"
 
@@ -176,16 +177,21 @@ func runAuthFull(cmd *cobra.Command, args []string) error {
 
 	log.LogInfo("Signing challenge...")
 	signChallengePath := filepath.Join("spark-cli", "sign-challenge.mjs")
-	signCmd := exec.Command("node", signChallengePath)
-	signCmd.Dir = "."
-	output, err := signCmd.CombinedOutput()
+	output, err := executil.RunNodeScript(signChallengePath, 30*time.Second)
 	if err != nil {
 		log.LogError("Failed to sign challenge", zap.Error(err), zap.String("output", string(output)))
 		return fmt.Errorf("failed to sign challenge: %w", err)
 	}
 
 	log.LogSuccess("Challenge signed successfully")
-	time.Sleep(500 * time.Millisecond)
+
+	// Wait for signature file to be written
+	dataDir := "data_in"
+	signatureFilePath := filepath.Join(dataDir, "signature.json")
+	if err := storage.WaitForFile(signatureFilePath, 3*time.Second); err != nil {
+		log.LogError("Signature file not created within timeout", zap.Error(err))
+		return fmt.Errorf("signature file not created: %w", err)
+	}
 
 	// Step 3: Verify signature
 	if err := runAuthVerify(cmd, args); err != nil {

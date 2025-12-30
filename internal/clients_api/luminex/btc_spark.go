@@ -64,4 +64,3 @@ func GetBTCSparkReserve() (float64, error) {
 	btcReserve = float64(int(btcReserve*100+0.5)) / 100
 	return btcReserve, nil
 }
-

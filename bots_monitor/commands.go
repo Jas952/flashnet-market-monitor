@@ -22,7 +22,8 @@ import (
 // RunCommandHandler for Telegram
 // filteredChatID - ID (filtered_chat_id)
 // client - Flashnet API for first buy
-func RunCommandHandler(bot *tgbotapi.BotAPI, filteredChatID string, client *flashnet.Client) {
+// apiBotChatID - optional second chat ID to listen to (for /exclude and /include commands)
+func RunCommandHandler(bot *tgbotapi.BotAPI, filteredChatID string, client *flashnet.Client, apiBotChatID ...string) {
 	if bot == nil {
 		log.LogWarn("Bot is nil, command handler not started")
 		return
@@ -33,7 +34,18 @@ func RunCommandHandler(bot *tgbotapi.BotAPI, filteredChatID string, client *flas
 		return
 	}
 
-	log.LogInfo("Starting command handler", zap.String("filteredChatID", filteredChatID))
+	apiChatID := ""
+	if len(apiBotChatID) > 0 {
+		apiChatID = apiBotChatID[0]
+	}
+
+	if apiChatID != "" {
+		log.LogInfo("Starting command handler",
+			zap.String("filteredChatID", filteredChatID),
+			zap.String("apiBotChatID", apiChatID))
+	} else {
+		log.LogInfo("Starting command handler", zap.String("filteredChatID", filteredChatID))
+	}
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
@@ -45,12 +57,20 @@ func RunCommandHandler(bot *tgbotapi.BotAPI, filteredChatID string, client *flas
 			continue
 		}
 
-		// Check, from
+		// Check if message is from one of the allowed chats
 		chatID := update.Message.Chat.ID
 		chatIDStr := formatChatID(chatID)
-		// and (on
+
 		expectedChatID := parseChatIDBig(filteredChatID)
-		if chatID != expectedChatID && chatIDStr != filteredChatID {
+		isFromFilteredChat := (chatID == expectedChatID || chatIDStr == filteredChatID)
+
+		isFromApiChat := false
+		if apiChatID != "" {
+			expectedApiChatID := parseChatIDBig(apiChatID)
+			isFromApiChat = (chatID == expectedApiChatID || chatIDStr == apiChatID)
+		}
+
+		if !isFromFilteredChat && !isFromApiChat {
 			continue
 		}
 
@@ -125,6 +145,32 @@ func RunCommandHandler(bot *tgbotapi.BotAPI, filteredChatID string, client *flas
 					ticker := strings.TrimSpace(parts[0])
 					dateStr := strings.TrimSpace(parts[1])
 					handleFlowReportCommand(bot, update.Message, ticker, dateStr)
+				}
+			}
+
+			// /exclude {ticker} - add token to blacklist (API_BOT_CHAT_ID only)
+			if command == "exclude" {
+				ticker := strings.TrimSpace(args)
+				if ticker == "" {
+					msg := tgbotapi.NewMessage(update.Message.Chat.ID,
+						"Usage: /exclude {ticker}\n\nExample: /exclude SOON")
+					msg.ReplyToMessageID = update.Message.MessageID
+					bot.Send(msg)
+				} else {
+					handleExcludeTokenCommand(bot, update.Message, ticker)
+				}
+			}
+
+			// /include {ticker} - remove token from blacklist (API_BOT_CHAT_ID only)
+			if command == "include" {
+				ticker := strings.TrimSpace(args)
+				if ticker == "" {
+					msg := tgbotapi.NewMessage(update.Message.Chat.ID,
+						"Usage: /include {ticker}\n\nExample: /include SOON")
+					msg.ReplyToMessageID = update.Message.MessageID
+					bot.Send(msg)
+				} else {
+					handleIncludeTokenCommand(bot, update.Message, ticker)
 				}
 			}
 
@@ -809,4 +855,107 @@ func formatStatsMessage(stats *luminex.StatsResponse) (string, error) {
 // formatChatID chat ID in (for
 func formatChatID(chatID int64) string {
 	return fmt.Sprintf("%d", chatID)
+}
+
+// handleExcludeTokenCommand /exclude {ticker} - add token to blacklist
+func handleExcludeTokenCommand(bot *tgbotapi.BotAPI, message *tgbotapi.Message, ticker string) {
+	// Find poolLpPublicKey by ticker
+	poolLpPublicKey, err := storage.FindPoolLpPublicKeyByTicker(ticker)
+	if err != nil {
+		log.LogWarn("Failed to find token by ticker for blacklist",
+			zap.String("ticker", ticker),
+			zap.Error(err))
+
+		msg := tgbotapi.NewMessage(message.Chat.ID,
+			fmt.Sprintf("❌ Ticker {%s} not found. Make sure the token has been traded before.", ticker))
+		msg.ReplyToMessageID = message.MessageID
+		bot.Send(msg)
+		return
+	}
+
+	// Check if token is already blacklisted
+	existingTokens, err := storage.LoadBlacklistedTokens()
+	if err == nil {
+		for _, existingToken := range existingTokens {
+			if strings.TrimSpace(existingToken) == poolLpPublicKey {
+				msg := tgbotapi.NewMessage(message.Chat.ID,
+					fmt.Sprintf("⚠️ Ticker {%s} is already excluded from notifications", ticker))
+				msg.ReplyToMessageID = message.MessageID
+				bot.Send(msg)
+				log.LogDebug("Token already in blacklist",
+					zap.String("ticker", ticker),
+					zap.String("poolLpPublicKey", poolLpPublicKey))
+				return
+			}
+		}
+	}
+
+	// Add token to blacklist
+	err = storage.AddBlacklistedToken(poolLpPublicKey)
+	if err != nil {
+		log.LogError("Failed to add token to blacklist",
+			zap.String("ticker", ticker),
+			zap.String("poolLpPublicKey", poolLpPublicKey),
+			zap.Error(err))
+
+		msg := tgbotapi.NewMessage(message.Chat.ID,
+			"❌ An error occurred, please try again later")
+		msg.ReplyToMessageID = message.MessageID
+		bot.Send(msg)
+		return
+	}
+
+	// Success message
+	msg := tgbotapi.NewMessage(message.Chat.ID,
+		fmt.Sprintf("Ticker {%s} excluded from notifications", ticker))
+	msg.ReplyToMessageID = message.MessageID
+	bot.Send(msg)
+
+	log.LogSuccess("Token added to blacklist",
+		zap.String("ticker", ticker),
+		zap.String("poolLpPublicKey", poolLpPublicKey),
+		zap.String("chatID", formatChatID(message.Chat.ID)))
+}
+
+// handleIncludeTokenCommand /include {ticker} - remove token from blacklist
+func handleIncludeTokenCommand(bot *tgbotapi.BotAPI, message *tgbotapi.Message, ticker string) {
+	// Find poolLpPublicKey by ticker
+	poolLpPublicKey, err := storage.FindPoolLpPublicKeyByTicker(ticker)
+	if err != nil {
+		log.LogWarn("Failed to find token by ticker for blacklist removal",
+			zap.String("ticker", ticker),
+			zap.Error(err))
+
+		msg := tgbotapi.NewMessage(message.Chat.ID,
+			fmt.Sprintf("❌ Ticker {%s} not found", ticker))
+		msg.ReplyToMessageID = message.MessageID
+		bot.Send(msg)
+		return
+	}
+
+	// Remove token from blacklist
+	err = storage.RemoveBlacklistedToken(poolLpPublicKey)
+	if err != nil {
+		log.LogError("Failed to remove token from blacklist",
+			zap.String("ticker", ticker),
+			zap.String("poolLpPublicKey", poolLpPublicKey),
+			zap.Error(err))
+
+		msg := tgbotapi.NewMessage(message.Chat.ID,
+			"❌ Token not found in exclusion list or error occurred")
+		msg.ReplyToMessageID = message.MessageID
+		bot.Send(msg)
+		return
+	}
+
+	// Success message
+	msg := tgbotapi.NewMessage(message.Chat.ID,
+		fmt.Sprintf("Ticker {%s} included back in notifications", ticker))
+	msg.ReplyToMessageID = message.MessageID
+	bot.Send(msg)
+
+	log.LogSuccess("Token removed from blacklist",
+		zap.String("ticker", ticker),
+		zap.String("poolLpPublicKey", poolLpPublicKey),
+		zap.String("chatID", formatChatID(message.Chat.ID)))
 }

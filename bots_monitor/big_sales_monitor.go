@@ -6,11 +6,11 @@ import (
 	"context"
 	"fmt"
 	"html"
-	"os/exec"
 	"path/filepath"
 	"spark-wallet/internal/clients_api/flashnet"
 	"spark-wallet/internal/clients_api/luminex"
 	"spark-wallet/internal/features/holders"
+	executil "spark-wallet/internal/infra/exec"
 	storage "spark-wallet/internal/infra/fs"
 	log "spark-wallet/internal/infra/log"
 	"strings"
@@ -82,7 +82,13 @@ func formatSwapMessageBig(swap flashnet.Swap) string {
 // formatBTCAmountBig formats BTC amount from minimal units (satoshi) to readable format
 func formatBTCAmountBig(satoshiStr string) string {
 	var satoshi float64
-	fmt.Sscanf(satoshiStr, "%f", &satoshi)
+	n, err := fmt.Sscanf(satoshiStr, "%f", &satoshi)
+	if err != nil || n != 1 {
+		log.LogWarn("Failed to parse satoshi amount in formatBTCAmountBig",
+			zap.String("satoshiStr", satoshiStr),
+			zap.Error(err))
+		return "0"
+	}
 	btc := satoshi / 1e8
 	return formatBTCWithoutTrailingZeros(btc)
 }
@@ -192,7 +198,13 @@ func getTokenAmountFromSwap(swap flashnet.Swap, amountStr string, tokenMetadata 
 	}
 
 	var amountValue float64
-	fmt.Sscanf(amountStr, "%f", &amountValue)
+	n, err := fmt.Sscanf(amountStr, "%f", &amountValue)
+	if err != nil || n != 1 {
+		log.LogWarn("Failed to parse token amount in getTokenAmountFromSwap",
+			zap.String("amountStr", amountStr),
+			zap.Error(err))
+		return "0"
+	}
 
 	decimals := 8 // Default value
 	if tokenMetadata != nil && tokenMetadata.Ticker != "" {
@@ -249,7 +261,14 @@ func saveHolderFromSwap(swap flashnet.Swap) {
 	var previousAmount float64
 	previousBalanceStr, exists := savedData.Holders[swap.SwapperPublicKey]
 	if exists {
-		fmt.Sscanf(previousBalanceStr, "%f", &previousAmount)
+		n, err := fmt.Sscanf(previousBalanceStr, "%f", &previousAmount)
+		if err != nil || n != 1 {
+			log.LogWarn("Failed to parse previous balance",
+				zap.String("previousBalanceStr", previousBalanceStr),
+				zap.String("ticker", ticker),
+				zap.Error(err))
+			previousAmount = 0
+		}
 	}
 
 	currentAmountStr := fmt.Sprintf("%.8f", currentAmount)
@@ -576,7 +595,13 @@ func findNewSwapsBig(oldSwaps, newSwaps []flashnet.Swap) []flashnet.Swap {
 // in Telegram ID -1003190218710)
 func parseChatIDBig(chatIDStr string) int64 {
 	var chatID int64
-	fmt.Sscanf(chatIDStr, "%d", &chatID)
+	n, err := fmt.Sscanf(chatIDStr, "%d", &chatID)
+	if err != nil || n != 1 {
+		log.LogWarn("Failed to parse chat ID",
+			zap.String("chatIDStr", chatIDStr),
+			zap.Error(err))
+		return 0
+	}
 	return chatID
 }
 
@@ -605,6 +630,15 @@ func RunBigSalesBuysMonitor(bot *tgbotapi.BotAPI, client *flashnet.Client, chatI
 	tokenCheckTicker := time.NewTicker(30 * time.Minute)
 	defer tokenCheckTicker.Stop()
 
+	// Load blacklisted tokens
+	blacklistedTokens, err := storage.LoadBlacklistedTokens()
+	if err != nil {
+		log.LogWarn("Failed to load blacklisted tokens, starting with empty list", zap.Error(err))
+		blacklistedTokens = []string{}
+	} else {
+		log.LogInfo("Loaded blacklisted tokens", zap.Int("count", len(blacklistedTokens)))
+	}
+
 	// Create for tokens 30
 	var reloadTokensTicker *time.Ticker
 	var reloadTokensChan <-chan time.Time
@@ -631,6 +665,15 @@ func RunBigSalesBuysMonitor(bot *tgbotapi.BotAPI, client *flashnet.Client, chatI
 				} else {
 					filteredTokensList = newTokensList
 					log.LogInfo("Reloaded filtered tokens from file", zap.Int("count", len(filteredTokensList)))
+				}
+
+				// Reload blacklisted tokens as well
+				newBlacklist, err := storage.LoadBlacklistedTokens()
+				if err != nil {
+					log.LogWarn("Failed to reload blacklisted tokens, using cached list", zap.Error(err))
+				} else {
+					blacklistedTokens = newBlacklist
+					log.LogInfo("Reloaded blacklisted tokens from file", zap.Int("count", len(blacklistedTokens)))
 				}
 			}
 		case <-tokenCheckTicker.C:
@@ -670,6 +713,14 @@ func RunBigSalesBuysMonitor(bot *tgbotapi.BotAPI, client *flashnet.Client, chatI
 				for _, swap := range newSwaps {
 					// in (for tokens)
 					if bot != nil && chatID != "" {
+						// Skip blacklisted tokens for main chat
+						if storage.IsTokenBlacklisted(swap.PoolLpPublicKey, blacklistedTokens) {
+							log.LogDebug("Skipping blacklisted token notification",
+								zap.String("poolLpPublicKey", swap.PoolLpPublicKey),
+								zap.String("swapID", swap.ID))
+							continue
+						}
+
 						if shouldSendSwap(swap, minBTCAmount) {
 							message, tradeLink := formatSwapMessageForTelegram(client, swap)
 
@@ -807,9 +858,7 @@ func checkAndRefreshToken(client *flashnet.Client) {
 	}
 
 	signChallengePath := filepath.Join("spark-cli", "sign-challenge.mjs")
-	cmd := exec.Command("node", signChallengePath)
-	cmd.Dir = "."
-	output, err := cmd.CombinedOutput()
+	output, err := executil.RunNodeScript(signChallengePath, 30*time.Second)
 	if err != nil {
 		log.LogError("Failed to sign challenge for token refresh",
 			zap.Error(err),
@@ -817,12 +866,16 @@ func checkAndRefreshToken(client *flashnet.Client) {
 		return
 	}
 
-	// time on file
-	time.Sleep(500 * time.Millisecond)
+	// Wait for signature file to be written
+	signatureFilePath := filepath.Join(dataDir, "signature.json")
+	if err := storage.WaitForFile(signatureFilePath, 3*time.Second); err != nil {
+		log.LogError("Signature file not created within timeout", zap.Error(err))
+		return
+	}
 
 	sigFile, err := flashnet.LoadSignatureFromFile(dataDir)
 	if err != nil || sigFile.Signature == "" {
-		log.LogError("Signature file not found after signing")
+		log.LogError("Signature file not found after signing", zap.Error(err))
 		return
 	}
 

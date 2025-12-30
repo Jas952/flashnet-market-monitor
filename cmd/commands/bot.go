@@ -9,12 +9,12 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"os/exec"
 	"os/signal"
 	"path/filepath"
 	"spark-wallet/bots_monitor"
 	"spark-wallet/internal/clients_api/flashnet"
 	"spark-wallet/internal/infra/config"
+	executil "spark-wallet/internal/infra/exec"
 	storage "spark-wallet/internal/infra/fs"
 	logging "spark-wallet/internal/infra/log"
 	"sync"
@@ -166,9 +166,7 @@ func handleAuthentication(ctx context.Context, client *flashnet.Client, cfg *con
 		if sigFile == nil || sigFile.Signature == "" {
 			logging.LogInfo("Signature not found, signing challenge automatically...")
 			signChallengePath := filepath.Join("spark-cli", "sign-challenge.mjs")
-			cmd := exec.Command("node", signChallengePath)
-			cmd.Dir = "."
-			output, err := cmd.CombinedOutput()
+			output, err := executil.RunNodeScript(signChallengePath, 30*time.Second)
 			if err != nil {
 				logging.LogError("Failed to sign challenge", zap.Error(err), zap.String("output", string(output)))
 				logging.LogWarn("Bot will run without authentication. Please sign manually:")
@@ -178,7 +176,13 @@ func handleAuthentication(ctx context.Context, client *flashnet.Client, cfg *con
 			}
 
 			logging.LogSuccess("Challenge signed successfully")
-			time.Sleep(500 * time.Millisecond)
+
+			// Wait for signature file to be written
+			signatureFilePath := filepath.Join(dataDir, "signature.json")
+			if err := storage.WaitForFile(signatureFilePath, 3*time.Second); err != nil {
+				logging.LogWarn("Signature file not created within timeout, bot will run without authentication", zap.Error(err))
+			}
+
 			sigFile, err := flashnet.LoadSignatureFromFile(dataDir)
 			if err == nil && sigFile.Signature != "" {
 				logging.LogInfo("Verifying signature...")
@@ -302,11 +306,11 @@ func startMonitors(ctx context.Context, wg *sync.WaitGroup, cfg *config.Config, 
 			}
 
 			if shouldRunFilteredCommandHandler {
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				bots_monitor.RunCommandHandler(filteredBot, filteredChatID, client)
-			}()
+				wg.Add(1)
+				go func() {
+					defer wg.Done()
+					bots_monitor.RunCommandHandler(filteredBot, filteredChatID, client)
+				}()
 			}
 
 			statsSendTime := cfg.Telegram.StatsSendTime
@@ -385,7 +389,11 @@ func startMonitors(ctx context.Context, wg *sync.WaitGroup, cfg *config.Config, 
 					zap.String("filteredChatID", filteredChatID),
 					zap.String("handlerFilteredChatID", handlerFilteredChatID),
 					zap.String("apiChatID", apiChatID))
-				bots_monitor.RunCommandHandler(bigSalesBot, handlerFilteredChatID, client)
+				if apiChatID != "" {
+					bots_monitor.RunCommandHandler(bigSalesBot, handlerFilteredChatID, client, apiChatID)
+				} else {
+					bots_monitor.RunCommandHandler(bigSalesBot, handlerFilteredChatID, client)
+				}
 			}()
 		} else if bigSalesChatID == cfg.Telegram.ApiBotChatID && cfg.Telegram.ApiBotChatID != "" {
 			// Different bots or filteredChatID is empty - start separate handler for API chat

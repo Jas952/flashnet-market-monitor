@@ -9,11 +9,12 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"os/exec"
 	"os/signal"
 	"path/filepath"
 	"spark-wallet/bots_monitor"
 	"spark-wallet/internal/clients_api/flashnet"
+	executil "spark-wallet/internal/infra/exec"
+	storage "spark-wallet/internal/infra/fs"
 	"spark-wallet/internal/infra/log"
 	"sync"
 	"syscall"
@@ -127,15 +128,18 @@ func ensureValidToken(client *flashnet.Client, publicKey string, dataDir string)
 
 	log.LogInfo("Signing challenge automatically...")
 	signChallengePath := filepath.Join("spark-cli", "sign-challenge.mjs")
-	cmd := exec.Command("node", signChallengePath)
-	cmd.Dir = "."
-	output, err := cmd.CombinedOutput()
+	output, err := executil.RunNodeScript(signChallengePath, 30*time.Second)
 	if err != nil {
 		log.LogError("Failed to sign challenge", zap.Error(err), zap.String("output", string(output)))
 		return fmt.Errorf("failed to sign challenge: %w", err)
 	}
 
-	time.Sleep(500 * time.Millisecond)
+	// Wait for signature file to be written
+	signatureFilePath := filepath.Join(dataDir, "signature.json")
+	if err := storage.WaitForFile(signatureFilePath, 3*time.Second); err != nil {
+		log.LogError("Signature file not created within timeout", zap.Error(err))
+		return fmt.Errorf("signature file not created: %w", err)
+	}
 
 	sigFile, err := flashnet.LoadSignatureFromFile(dataDir)
 	if err != nil || sigFile.Signature == "" {

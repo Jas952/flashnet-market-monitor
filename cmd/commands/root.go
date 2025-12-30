@@ -26,4 +26,3 @@ func init() {
 	rootCmd.AddCommand(holdersCmd)
 	rootCmd.AddCommand(authCmd)
 }
-

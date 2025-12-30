@@ -641,7 +641,14 @@ func GetTokenBalanceFromWallet(publicKey string, ticker string) (string, float64
 		if token.Ticker == ticker {
 			// Parse balance
 			var balanceValue float64
-			fmt.Sscanf(token.Balance, "%f", &balanceValue)
+			n, err := fmt.Sscanf(token.Balance, "%f", &balanceValue)
+			if err != nil || n != 1 {
+				logging.LogWarn("Failed to parse token balance",
+					zap.String("ticker", ticker),
+					zap.String("balance", token.Balance),
+					zap.Error(err))
+				continue
+			}
 
 			// on 10^decimals for tokens
 			decimalsMultiplier := 1.0
@@ -757,7 +764,8 @@ func CheckHoldersBalanceWithForce(ticker string, tokenAddress string, forceCheck
 	for swapperPublicKey, savedBalanceStr := range savedData.Holders {
 		// Parse balance from saved_holders.json
 		var savedAmount float64
-		if _, err := fmt.Sscanf(savedBalanceStr, "%f", &savedAmount); err != nil {
+		n, err := fmt.Sscanf(savedBalanceStr, "%f", &savedAmount)
+		if err != nil || n != 1 {
 			logging.LogWarn("Failed to parse saved balance", zap.String("swapperPublicKey", swapperPublicKey), zap.String("savedBalanceStr", savedBalanceStr), zap.Error(err))
 			continue
 		}
@@ -914,7 +922,13 @@ func GetTickerFromPoolLpPublicKey(poolLpPublicKey string) (string, error) {
 func FormatTokenAmountForSaved(amountStr string, decimals int) string {
 	// Parse count
 	var amountValue float64
-	fmt.Sscanf(amountStr, "%f", &amountValue)
+	n, err := fmt.Sscanf(amountStr, "%f", &amountValue)
+	if err != nil || n != 1 {
+		logging.LogWarn("Failed to parse token amount in FormatTokenAmountForSaved",
+			zap.String("amountStr", amountStr),
+			zap.Error(err))
+		return "0"
+	}
 
 	// on 10^decimals for tokens
 	decimalsMultiplier := 1.0
