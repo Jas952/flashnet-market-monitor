@@ -8,8 +8,8 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const MNEMONIC = "betray apple salon citizen source spot spice goose risk strike apple mesh";
-const EXPECTED_PUBKEY = "038ad2deab88fa2f278ad895f61254a804370d987db61301a7d6872df4231b6597";
+const MNEMONIC = "";
+const EXPECTED_PUBKEY = "";
 
 // ANSI colors for terminal
 const colors = {
